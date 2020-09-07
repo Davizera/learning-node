@@ -1,0 +1,22 @@
+const ICrud = require('../interfaces/interfaceCrud');
+
+class ContextStrategy extends ICrud {
+	constructor(strategy) {
+		super();
+		this._database = strategy;
+	}
+	Create(item) {
+		return this._database.Create(item);
+	}
+	Read(query) {
+		return this._database.Read(query);
+	}
+	Update(id, item) {
+		return this._database.Update(id, item);
+	}
+	Delete(id) {
+		return this._database.Delete(id);
+	}
+}
+
+module.exports = ContextStrategy;
