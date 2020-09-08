@@ -1,3 +1,6 @@
+Esse README não é um README de verdade e sim apenas uma cola para os comandos do docker.
+
+Projeto aprendendo um pouco sobre node.js 🐱‍🏍🐱‍🏍🐱‍🏍🐱‍👤🐱‍👤
 ## ---- POSTGRES
 
 ```docker
