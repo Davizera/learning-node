@@ -32,6 +32,10 @@ async function Main() {
 		}
 	);
 	await Heroes.sync();
+	await Heroes.create({
+		nome: 'Homem-Aranha',
+		poder: 'Soltar teias e escalar paredes',
+	});
 	const heroes = await Heroes.findAll({ raw: true });
 	console.log(heroes);
 }
