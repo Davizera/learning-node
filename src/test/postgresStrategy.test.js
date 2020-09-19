@@ -23,10 +23,18 @@ describe('Postgres Strategy', function () {
 
 		assert.deepEqual(result, MOCK_HEROI_CADASTRAR);
 	});
-	it('Read heróis', async function () {
+	it('Read heroes', async function () {
 		const [result] = await context.Read({ nome: MOCK_HEROI_CADASTRAR.nome });
 		delete result.id;
 
 		assert.deepEqual(result, MOCK_HEROI_CADASTRAR);
+	});
+	it('Update heroes', async function () {
+		const result = await context.Update(15, {nome: "Miranha", poder:"Friend da vizinhança"});
+		assert.equal(result, true);
+	});
+	it.only('Delete heroes', async function () {
+		const result =  await context.Delete(39);
+		assert.equal(result, true)
 	});
 });
