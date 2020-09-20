@@ -7,11 +7,16 @@ const MOCK_HEROI_CADASTRAR = {
 	nome: 'Gavião Arqueiro',
 	poder: 'A mira mais braba',
 };
+const MOCK_HEROI_ATUALIZAR = {
+	nome: 'Batman',
+	poder: 'Roteiro',
+};
 
 describe('Postgres Strategy', function () {
 	this.timeout(Infinity);
 	this.beforeAll(async function () {
 		await context.Connect();
+		await context.Create(MOCK_HEROI_ATUALIZAR);
 	});
 	it('PostgresSQL Connection', async function () {
 		const result = await context.IsConnected();
@@ -30,11 +35,20 @@ describe('Postgres Strategy', function () {
 		assert.deepEqual(result, MOCK_HEROI_CADASTRAR);
 	});
 	it('Update heroes', async function () {
-		const result = await context.Update(15, {nome: "Miranha", poder:"Friend da vizinhança"});
-		assert.equal(result, true);
+		const [read] = await context.Read({nome: MOCK_HEROI_ATUALIZAR.nome});
+		const itemToUpdate = {
+			nome: "Lanterna Verde",
+			poder: "Anel dos lanternas"
+		}
+		const result = await context.Update(read.id, itemToUpdate);
+		delete result.id;
+		assert.deepEqual(result, itemToUpdate);
 	});
-	it.only('Delete heroes', async function () {
-		const result =  await context.Delete(39);
+	it('Delete heroes', async function () {
+		const deleteItem = await context.Create(MOCK_HEROI_CADASTRAR);
+		const [read] = await context.Read({nome: deleteItem.nome});
+		console.log(read);
+		const result =  await context.Delete(read.id);
 		assert.equal(result, true)
 	});
 });

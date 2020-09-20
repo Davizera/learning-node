@@ -8,8 +8,8 @@ class ContextStrategy extends ICrud {
 	Create(item) {
 		return this._database.Create(item);
 	}
-	Read(query) {
-		return this._database.Read(query);
+	Read(item) {
+		return this._database.Read(item);
 	}
 	Update(id, item) {
 		return this._database.Update(id, item);

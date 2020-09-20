@@ -23,9 +23,9 @@ class Postgres extends ICrud {
 		return await this._heroes.findAll({ where: item, raw: true });
 	}
 
-	async Update(id, item = {}, ){
-		const result = await this._heroes.update(item, {where: {id: id}});
-		return !!result[0];
+	async Update(id, item = {}){
+		const [,result] = await this._heroes.update(item, {where: {id: id}, returning: true});
+		return result[0].dataValues;
 	}
 
 	async Delete(id){
